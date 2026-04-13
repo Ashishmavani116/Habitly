@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habitly ⚡ - AI Habit Tracker</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Boogaloo&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <!-- Background Blobs -->
+    <div class="blob blob-red"></div>
+    <div class="blob blob-blue"></div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Header -->
+    <header>
+      <div class="header-inner">
+        <div class="logo-area">
+          <h1 class="logo">Habitly ⚡</h1>
+          <p class="date-label" id="dateLabel"></p>
+        </div>
+        <nav class="nav">
+          <button class="nav-btn active" data-view="dashboard">🏠 Home</button>
+          <button class="nav-btn" data-view="charts">📊 Charts</button>
+          <button class="nav-btn" data-view="insights">🤖 AI Insights</button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- DASHBOARD VIEW -->
+      <section id="view-dashboard" class="view active">
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+          <div class="summary-card gradient-red">
+            <div class="summary-label">TODAY'S PROGRESS</div>
+            <div class="summary-value" id="todayPct">0%</div>
+            <div class="summary-sub" id="todaySub">0 of 0 habits done</div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+          </div>
+          <div class="summary-card glass">
+            <div class="summary-label">TOTAL HABITS</div>
+            <div class="summary-value green" id="totalHabits">0</div>
+            <div class="summary-sub">active habits tracked</div>
+          </div>
+          <div class="summary-card glass">
+            <div class="summary-label">BEST STREAK 🔥</div>
+            <div class="summary-value purple" id="bestStreak">0 days</div>
+            <div class="summary-sub">keep it up!</div>
+          </div>
+        </div>
+
+        <!-- Habits -->
+        <div class="section-header">
+          <h2 class="section-title">Today's Habits</h2>
+          <button class="add-btn" id="openAddModal">+ Add Habit</button>
+        </div>
+        <div id="habitList" class="habit-list">
+          <div class="empty-state" id="emptyState">
+            No habits yet! Add one above ⬆️
+          </div>
+        </div>
+      </section>
+
+      <!-- CHARTS VIEW -->
+      <section id="view-charts" class="view hidden">
+        <h2 class="section-title" style="margin-bottom: 24px">
+          📊 Your Progress Charts
+        </h2>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3 class="chart-title yellow">📈 Daily Completion Rate</h3>
+            <canvas id="lineChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title green">📊 Habits Per Day</h3>
+            <canvas id="barChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title purple">🕸️ Weekly Habit Radar</h3>
+            <canvas id="radarChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3 class="chart-title orange">🏆 Weekly Scorecards</h3>
+            <div id="scorecards"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI INSIGHTS VIEW -->
+      <section id="view-insights" class="view hidden">
+        <h2 class="section-title">🤖 AI Habit Coach</h2>
+        <p class="insights-sub">
+          Powered by llama AI — get personalized insights based on your last 7
+          days
+        </p>
+        <div id="insightStats" class="insight-stats"></div>
+        <button class="add-btn full-width" id="getInsightsBtn">
+          ✨ Get AI Insights &amp; Suggestions
+        </button>
+        <div id="insightLoading" class="loading-state hidden">
+          <div class="pulsing-brain">🧠</div>
+          <div>llama is analyzing your habit data...</div>
+        </div>
+        <div id="insightResult" class="ai-box hidden"></div>
+        <div id="insightPlaceholder" class="empty-state">
+          Click the button above to get personalized AI insights 🎯
+        </div>
+      </section>
+    </main>
+
+    <!-- Add/Edit Modal -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+      <div class="modal">
+        <h2 class="modal-title" id="modalTitle">✨ New Habit</h2>
+
+        <div class="field-group">
+          <label class="field-label">HABIT NAME</label>
+          <input
+            class="input-field"
+            id="habitName"
+            type="text"
+            placeholder="e.g. Morning meditation..."
+          />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">PICK AN EMOJI</label>
+          <div class="emoji-grid" id="emojiGrid"></div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">PICK A COLOR</label>
+          <div class="color-row" id="colorRow"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="cancel-btn" id="closeModal">Cancel</button>
+          <button class="add-btn" id="saveHabit">Add Habit 🚀</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
